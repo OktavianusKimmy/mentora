@@ -9,7 +9,7 @@ class AuthRedirectController extends Controller
     public function handle()
     {
         if (auth()->check()) {
-            return redirect('/dashboard');
+            return redirect('/');
         } else {
             return redirect('/login');
         }

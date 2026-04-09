@@ -23,9 +23,18 @@
                 Soal TPS logika ini gimana cara ngerjainnya?
             </p>
             <p class="text-sm text-textgray">12 jawaban • 10 menit lalu</p>
-            <button class="mt-3 text-primary font-semibold">
-                Login untuk lihat jawaban →
-            </button>
+            @guest
+            <div class="blur-sm pointer-events-none select-none">
+            @endguest
+
+            <!-- KONTEN JAWABAN -->
+            <div class="mt-3 text-gray-700">
+                Ini adalah jawaban lengkap dari soal SNBT...
+            </div>
+
+            @guest
+            </div>
+            @endguest
         </div>
 
         <div class="bg-white p-3 rounded-2xl shadow-sm">
@@ -33,9 +42,18 @@
                 Cara cepat ngerjain numerasi perbandingan gimana ya?
             </p>
             <p class="text-sm text-textgray">8 jawaban • 1 jam lalu</p>
-            <button class="mt-3 text-primary font-semibold">
-                Login untuk lihat jawaban →
-            </button>
+            @guest
+            <div class="blur-sm pointer-events-none select-none">
+            @endguest
+
+            <!-- KONTEN JAWABAN -->
+            <div class="mt-3 text-gray-700">
+                Ini adalah jawaban lengkap dari soal SNBT...
+            </div>
+
+            @guest
+            </div>
+            @endguest
         </div>
 
         <div class="bg-white p-3 rounded-2xl shadow-sm">
@@ -43,9 +61,18 @@
                 Ada tips biar ga kehabisan waktu pas SNBT?
             </p>
             <p class="text-sm text-textgray">20 jawaban • 3 jam lalu</p>
-            <button class="mt-3 text-primary font-semibold">
-                Login untuk lihat jawaban →
-            </button>
+            @guest
+            <div class="blur-sm pointer-events-none select-none">
+            @endguest
+
+            <!-- KONTEN JAWABAN -->
+            <div class="mt-3 text-gray-700">
+                Ini adalah jawaban lengkap dari soal SNBT...
+            </div>
+
+            @guest
+            </div>
+            @endguest
         </div>
 
     </div>
