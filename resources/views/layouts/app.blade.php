@@ -6,9 +6,9 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-background h-full">
+<body class="bg-background h-full overflow-hidden">
 
-<div class="flex h-full">
+<div class="flex h-screen">
 
     <!-- SIDEBAR -->
     <aside class="w-64 bg-white shadow-lg hidden md:flex flex-col p-6">
@@ -63,7 +63,7 @@
     <!-- RIGHT AREA -->
     <div class="flex-1 flex flex-col h-full">
 
-        <main class="flex-1 overflow-hidden p-6 md:p-10 h-full">
+        <main class="flex-1 overflow-y-auto p-6 md:p-10">
             @yield('content')
         </main>
 
