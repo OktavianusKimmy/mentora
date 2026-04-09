@@ -1,8 +1,14 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Mentora</title>
 
-@section('content')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
 
-<div class="min-h-screen flex items-center justify-center bg-gray-50">
+<body class="bg-gray-50 flex items-center justify-center min-h-screen">
 
     <div class="w-full max-w-md bg-white p-8 rounded-2xl shadow">
 
@@ -75,12 +81,11 @@
 
         <!-- REGISTER BUTTON -->
         <a href="{{ route('register') }}"
-           class="block w-full text-center border border-primary text-primary py-2 rounded-lg font-semibold hover:bg-primary hover:text-white transition">
+        class="block w-full text-center border border-primary text-primary py-2 rounded-lg font-semibold hover:bg-primary hover:text-white transition">
             Daftar akun baru
         </a>
 
     </div>
 
-</div>
-
-@endsection
+</body>
+</html>
