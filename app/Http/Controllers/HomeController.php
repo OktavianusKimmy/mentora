@@ -40,6 +40,12 @@ class HomeController extends Controller
                     $hours = $session->duration / 60;
 
                     $weekly[$date]['total'] += $hours;
+                    // Cek dulu, kalau belum ada, set jadi 0
+                    if (!isset($weekly[$date][$session->category])) {
+                        $weekly[$date][$session->category] = 0;
+                    }
+
+                    // Baru deh ditambah durasinya
                     $weekly[$date][$session->category] += $hours;
                 }
             }

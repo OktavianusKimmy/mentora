@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2026 at 05:31 AM
+-- Generation Time: Apr 13, 2026 at 05:43 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -116,7 +116,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '0001_01_01_000000_create_users_table', 1),
 (2, '0001_01_01_000001_create_cache_table', 1),
 (3, '0001_01_01_000002_create_jobs_table', 1),
-(4, '2026_04_08_092118_create_study_sessions_table', 2);
+(4, '2026_04_08_092118_create_study_sessions_table', 2),
+(5, '2026_04_10_065600_create_study_sessions_table', 3);
 
 -- --------------------------------------------------------
 
@@ -150,7 +151,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('ktJgxg2zbEnxHGrTldBp4KyfduOckimu9TNyuyOi', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJkRzFNS0ttcllVdnh2OWpPc2txR2pjeUtwVHBvWGEyT2R2dUpFTXByIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwIiwicm91dGUiOm51bGx9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19', 1775704680);
+('Qg2CwUiR6U4lzZmpK9vaGVypWxUalUiuV6c81ey6', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJodEZIVHY4dTFodlBaSVg3V2VCbEhsejY2NTJPVnQ5cllqdmJ0U0tQIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwXC9zdHVkeS1yb29tIiwicm91dGUiOiJzdHVkeS1yb29tIn0sIl9mbGFzaCI6eyJvbGQiOltdLCJuZXciOltdfSwibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiOjF9', 1776051621);
 
 -- --------------------------------------------------------
 
@@ -160,9 +161,33 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 
 CREATE TABLE `study_sessions` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `category` varchar(255) NOT NULL,
+  `duration` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `study_sessions`
+--
+
+INSERT INTO `study_sessions` (`id`, `user_id`, `category`, `duration`, `created_at`, `updated_at`) VALUES
+(1, 1, 'focus', 25, '2026-04-12 19:38:05', '2026-04-12 19:38:05'),
+(2, 1, 'focus', 25, '2026-04-12 19:39:30', '2026-04-12 19:39:30'),
+(3, 1, 'focus', 25, '2026-04-12 20:08:23', '2026-04-12 20:08:23'),
+(4, 1, 'focus', 25, '2026-04-12 20:12:10', '2026-04-12 20:12:10'),
+(5, 1, 'focus', 25, '2026-04-12 20:16:48', '2026-04-12 20:16:48'),
+(6, 1, 'focus', 25, '2026-04-12 20:20:26', '2026-04-12 20:20:26'),
+(7, 1, 'focus', 25, '2026-04-12 20:25:30', '2026-04-12 20:25:30'),
+(8, 1, 'focus', 25, '2026-04-12 20:27:51', '2026-04-12 20:27:51'),
+(9, 1, 'focus', 25, '2026-04-12 20:28:49', '2026-04-12 20:28:49'),
+(10, 1, 'focus', 25, '2026-04-12 20:30:18', '2026-04-12 20:30:18'),
+(11, 1, 'focus', 25, '2026-04-12 20:32:54', '2026-04-12 20:32:54'),
+(12, 1, 'focus', 25, '2026-04-12 20:34:27', '2026-04-12 20:34:27'),
+(13, 1, 'focus', 25, '2026-04-12 20:37:03', '2026-04-12 20:37:03'),
+(14, 1, 'focus', 25, '2026-04-12 20:37:13', '2026-04-12 20:37:13'),
+(15, 1, 'focus', 25, '2026-04-12 20:39:37', '2026-04-12 20:39:37');
 
 -- --------------------------------------------------------
 
@@ -180,6 +205,13 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Kei', 'kevintanwiputra@gmail.com', NULL, '$2y$12$0orCB4dOMu/TvxYXhnPXhOV2/Bgyzzip1oP38DYLXKxsMzPTS3oRu', NULL, '2026-04-09 23:49:38', '2026-04-10 00:24:52');
 
 --
 -- Indexes for dumped tables
@@ -243,7 +275,8 @@ ALTER TABLE `sessions`
 -- Indexes for table `study_sessions`
 --
 ALTER TABLE `study_sessions`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `study_sessions_user_id_foreign` (`user_id`);
 
 --
 -- Indexes for table `users`
@@ -272,19 +305,29 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `study_sessions`
 --
 ALTER TABLE `study_sessions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `study_sessions`
+--
+ALTER TABLE `study_sessions`
+  ADD CONSTRAINT `study_sessions_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
