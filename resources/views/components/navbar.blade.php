@@ -10,7 +10,7 @@
 
             <!-- Menu Desktop -->
             <div class="hidden md:flex items-center gap-8 font-medium">
-                <a href="#" class="hover:text-primary">Study Room</a>
+                <a href="/study-room" class="hover:text-primary">Study Room</a>
                 <a href="#" class="hover:text-primary">Forum</a>
                 <a href="#" class="hover:text-primary">Tutor</a>
                 <a href="#" class="hover:text-primary">Tracker</a>
@@ -30,7 +30,7 @@
     <!-- Mobile Menu -->
     <div id="mobileMenu" class="hidden md:hidden px-6 pb-4">
         <div class="flex flex-col gap-4 font-medium">
-            <a href="#" class="hover:text-primary">Study Room</a>
+            <a href="/study-room" class="hover:text-primary">Study Room</a>
             <a href="#" class="hover:text-primary">Forum</a>
             <a href="#" class="hover:text-primary">Tutor</a>
             <a href="#" class="hover:text-primary">Tracker</a>

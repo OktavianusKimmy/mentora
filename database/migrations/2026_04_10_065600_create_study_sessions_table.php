@@ -6,14 +6,13 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-
-    public function up()
+    public function up(): void
     {
         Schema::create('study_sessions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('category'); // TPS / Numerasi / Literasi
-            $table->integer('duration'); // dalam menit
+            $table->string('category');
+            $table->integer('duration');
             $table->timestamps();
         });
     }
