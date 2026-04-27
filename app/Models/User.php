@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password'])]
+// Tambahkan 'role' dan 'google_id' di sini
+#[Fillable(['name', 'email', 'password', 'role', 'google_id'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -28,5 +29,14 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Fungsi cek role yang kamu buat sudah benar, tetap pertahankan di sini
+    public function isAdmin() { 
+        return $this->role === 'admin'; 
+    }
+
+    public function isTutor() { 
+        return $this->role === 'tutor'; 
     }
 }

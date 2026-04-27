@@ -2,83 +2,25 @@ const MODES = {
     pomodoro25: {
         key: 'pomodoro25',
         name: 'Pomodoro 25/5',
-        sequence: [{
-                type: 'study',
-                duration: 25 * 60,
-                label: 'Study 25 Menit',
-                saveMinutes: 25
-            },
-            {
-                type: 'break',
-                duration: 5 * 60,
-                label: 'Break 5 Menit',
-                saveMinutes: 0
-            },
-            {
-                type: 'study',
-                duration: 25 * 60,
-                label: 'Study 25 Menit',
-                saveMinutes: 25
-            },
-            {
-                type: 'break',
-                duration: 5 * 60,
-                label: 'Break 5 Menit',
-                saveMinutes: 0
-            },
-            {
-                type: 'study',
-                duration: 25 * 60,
-                label: 'Study 25 Menit',
-                saveMinutes: 25
-            },
-            {
-                type: 'break',
-                duration: 5 * 60,
-                label: 'Break 5 Menit',
-                saveMinutes: 0
-            },
-            {
-                type: 'study',
-                duration: 25 * 60,
-                label: 'Study 25 Menit',
-                saveMinutes: 25
-            },
-            {
-                type: 'long_break',
-                duration: 30 * 60,
-                label: 'Long Break 30 Menit',
-                saveMinutes: 0
-            },
+        sequence: [
+            { type: 'study', duration: 25 * 60, label: 'Study 25 Menit', saveMinutes: 25 },
+            { type: 'break', duration: 5 * 60, label: 'Break 5 Menit', saveMinutes: 0 },
+            { type: 'study', duration: 25 * 60, label: 'Study 25 Menit', saveMinutes: 25 },
+            { type: 'break', duration: 5 * 60, label: 'Break 5 Menit', saveMinutes: 0 },
+            { type: 'study', duration: 25 * 60, label: 'Study 25 Menit', saveMinutes: 25 },
+            { type: 'break', duration: 5 * 60, label: 'Break 5 Menit', saveMinutes: 0 },
+            { type: 'study', duration: 25 * 60, label: 'Study 25 Menit', saveMinutes: 25 },
+            { type: 'long_break', duration: 30 * 60, label: 'Long Break 30 Menit', saveMinutes: 0 },
         ],
     },
     deep50: {
         key: 'deep50',
         name: 'Deep 50/10',
-        sequence: [{
-                type: 'study',
-                duration: 50 * 60,
-                label: 'Study 50 Menit',
-                saveMinutes: 50
-            },
-            {
-                type: 'break',
-                duration: 10 * 60,
-                label: 'Break 10 Menit',
-                saveMinutes: 0
-            },
-            {
-                type: 'study',
-                duration: 50 * 60,
-                label: 'Study 50 Menit',
-                saveMinutes: 50
-            },
-            {
-                type: 'long_break',
-                duration: 30 * 60,
-                label: 'Long Break 30 Menit',
-                saveMinutes: 0
-            },
+        sequence: [
+            { type: 'study', duration: 50 * 60, label: 'Study 50 Menit', saveMinutes: 50 },
+            { type: 'break', duration: 10 * 60, label: 'Break 10 Menit', saveMinutes: 0 },
+            { type: 'study', duration: 50 * 60, label: 'Study 50 Menit', saveMinutes: 50 },
+            { type: 'long_break', duration: 30 * 60, label: 'Long Break 30 Menit', saveMinutes: 0 },
         ],
     },
 };
@@ -91,8 +33,9 @@ let totalSeconds = currentStep.duration;
 let timer = null;
 let isRunning = false;
 let isFocusMode = false;
-let expectedEndTime = 0; // Tambahan untuk timer yang kebal tab throttling
+let expectedEndTime = 0;
 
+// Element Selectors
 const timerDisplay = document.getElementById('timerDisplay');
 const sessionTitle = document.getElementById('sessionTitle');
 const sessionTypeLabel = document.getElementById('sessionTypeLabel');
@@ -246,7 +189,7 @@ function updateDisplay() {
     const next = getNextStep();
     const progress = getStudyProgress();
     const timeText = formatTime(secondsLeft);
-    const status = stateText ? stateText.textContent : 'Ready';
+    const statusTextContent = (statusText && statusText.textContent) ? statusText.textContent : 'Ready';
 
     if (timerDisplay) timerDisplay.textContent = timeText;
     if (sessionTitle) sessionTitle.textContent = currentStep.label;
@@ -260,7 +203,10 @@ function updateDisplay() {
     if (focusOverlayType) focusOverlayType.textContent = getTypeText(currentStep.type);
     if (focusOverlayNextBreakText) focusOverlayNextBreakText.textContent = next.label;
     if (focusOverlayStepCounter) focusOverlayStepCounter.textContent = `Session ${progress.current} / ${progress.total}`;
-    if (focusOverlayStatusText && statusText) focusOverlayStatusText.textContent = statusText.textContent;
+    
+    if (focusOverlayStatusText) {
+        focusOverlayStatusText.textContent = statusTextContent;
+    }
 
     updateCircleElement(progressCircle);
     updateCircleElement(focusOverlayProgressCircle);
@@ -273,7 +219,9 @@ function updateDisplay() {
 
 function setStateText(text) {
     if (stateText) stateText.textContent = text;
-    if (focusOverlayStatusText && statusText) focusOverlayStatusText.textContent = statusText.textContent;
+    if (focusOverlayStatusText) {
+        focusOverlayStatusText.textContent = text;
+    }
 }
 
 function stopTimer() {
@@ -328,20 +276,14 @@ function nextStep() {
 function playAlarm() {
     if (!alarmSound) return;
 
-    // Paksa browser buat "sadar" ada audio yang harus dimainin
     alarmSound.pause();
     alarmSound.currentTime = 0;
 
-    // Pake play() yang bentuknya promise biar kita tau kenapa dia gagal
     alarmSound.play().then(() => {
         console.log('Alarm bunyi!');
     }).catch(error => {
-        // Biasanya error "NotAllowedError" karena user belum klik apa-apa di web
         console.error('Alarm diblokir browser:', error);
-
-        // Cadangan: Munculin alert biar user klik OK, 
-        // setelah klik biasanya audio bakal "terbuka" kuncinya
-        alert("Sesi selesai! (Browser mematikan suara otomatis)");
+        alert("Sesi selesai!");
     });
 }
 
@@ -408,17 +350,13 @@ async function saveSession(minutes) {
         return true;
     } catch (error) {
         console.error(error);
-        alert('Session selesai, tapi gagal disimpan ke database.');
         return false;
     }
 }
 
 async function handleSessionComplete() {
-    // 1. Matikan timer & Bunyiin alarm SECEPAT MUNGKIN
     stopTimer();
     playAlarm();
-
-    console.log("Mencoba membunyikan alarm..."); // Cek ini di console
 
     const next = getNextStep();
 
@@ -426,28 +364,23 @@ async function handleSessionComplete() {
         setStateText('Completed');
         if (statusText) statusText.textContent = 'Sesi fokus selesai.';
 
-        // 2. Munculkan modal segera (User interface dulu)
         openModal(
-            'Sesi fokus selesai 🎉',
+            'Sesi fokus selesai 脂',
             `${currentStep.label} selesai. Sekarang lanjut ke ${next.label}.`,
             next.label
         );
 
-        // 3. Simpan ke database tanpa 'await' di depannya
-        // Biarkan dia jalan di background supaya tidak nge-freeze UI/Suara
         saveSession(currentStep.saveMinutes);
-
         updateDisplay();
         return;
     }
 
-    // Bagian break
     if (currentStep.type === 'break') {
         setStateText('Break Complete');
         if (statusText) statusText.textContent = 'Break selesai.';
 
         openModal(
-            'Break selesai ⚡',
+            'Break selesai 笞｡',
             `Saatnya balik fokus. Step berikutnya: ${next.label}.`,
             next.label
         );
@@ -455,7 +388,6 @@ async function handleSessionComplete() {
         return;
     }
 
-    // Bagian cycle selesai
     setStateText('Cycle Complete');
     if (statusText) statusText.textContent = 'Long break selesai.';
     openModal(
@@ -473,7 +405,6 @@ function startTimer() {
     setStateText('Running');
     if (statusText) statusText.textContent = `${currentStep.label} sedang berjalan...`;
 
-    // Kalkulasi kapan timer ini seharusnya selesai (kebal tab throttling)
     expectedEndTime = Date.now() + (secondsLeft * 1000);
     updateDisplay();
 
@@ -495,7 +426,6 @@ function startTimer() {
 function pauseTimer() {
     if (!isRunning) return;
 
-    // Pastikan sisa detik akurat pas dipause
     secondsLeft = Math.max(0, Math.round((expectedEndTime - Date.now()) / 1000));
     stopTimer();
 
@@ -525,18 +455,46 @@ function exitFocusMode() {
     }
 }
 
-// Menghapus semua optional chaining (?.) untuk mencegah error Vite
+// --- LOGIKA AREA KLIK SAKTI ---
+
+window.handleAreaClick = function(event) {
+    // 1. Pastikan kita tidak mengganggu tombol Start/Pause/Reset
+    // closest('button') akan mengecek apakah yang diklik itu tombol atau isi di dalam tombol
+    if (event.target.closest('button')) {
+        return; 
+    }
+
+    // 2. Cek status timer saat ini
+    const state = stateText ? stateText.textContent.trim() : 'Ready';
+    
+    // 3. Masuk Focus Mode hanya jika Running atau Paused
+    if (state === 'Running' || state === 'Paused') {
+        enterFocusMode();
+    } else {
+        // Efek visual kalau belum Start
+        const card = document.getElementById('timerCard');
+        card.classList.add('shake-subtle');
+        setTimeout(() => card.classList.remove('shake-subtle'), 400);
+        console.log("Timer belum berjalan.");
+    }
+};
+
+window.handleOverlayAreaClick = function(event) {
+    // Keluar mode fokus jika klik area kosong (bukan klik tombol di dalam overlay)
+    if (!event.target.closest('button')) {
+        exitFocusMode();
+    }
+};
+
+// Event Listeners (All guarded by null checks)
 if (modePomodoro) modePomodoro.addEventListener('click', () => switchMode('pomodoro25'));
 if (modeDeep50) modeDeep50.addEventListener('click', () => switchMode('deep50'));
-
 if (startBtn) startBtn.addEventListener('click', startTimer);
 if (pauseBtn) pauseBtn.addEventListener('click', pauseTimer);
 if (resetBtn) resetBtn.addEventListener('click', resetTimer);
-
 if (focusOverlayStartBtn) focusOverlayStartBtn.addEventListener('click', startTimer);
 if (focusOverlayPauseBtn) focusOverlayPauseBtn.addEventListener('click', pauseTimer);
 if (focusOverlayResetBtn) focusOverlayResetBtn.addEventListener('click', resetTimer);
-
 if (focusModeBtn) focusModeBtn.addEventListener('click', enterFocusMode);
 if (exitFocusModeBtn) exitFocusModeBtn.addEventListener('click', exitFocusMode);
 
@@ -554,5 +512,9 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-switchMode('pomodoro25');
-updateDisplay();
+// INITIALIZATION WRAPPER
+// ONLY RUN IF WE ARE ON THE STUDY ROOM PAGE
+if (timerDisplay) {
+    switchMode('pomodoro25');
+    updateDisplay();
+}
