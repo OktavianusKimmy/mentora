@@ -20,7 +20,23 @@
 
     @include('partials.sidebar')
 
-    <div class="flex-1 flex flex-col h-full">
+    <div id="mainContent"
+     class="flex-1 flex flex-col h-full ml-64 transition-all duration-300">
+        <div class="flex items-center gap-4 p-4 bg-white border-b">
+
+            <button id="floatingBurger"
+                class="fixed top-[35] left-10 z-[60] p-2 transition hidden">
+                
+                <svg id="sidebarIcon" xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5 text-accent rotate-180 transition-transform duration-300"
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
+                        d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+
+        </div>
         <main class="flex-1 overflow-y-auto p-6 md:p-10">
             @yield('content')
         </main>
@@ -29,6 +45,46 @@
 </div>
 
 <script>
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const floatingBtn = document.getElementById('floatingBurger');
+    const main = document.getElementById('mainContent');
+    const banner = document.getElementById('topBanner');
+    const icon = document.getElementById('sidebarIcon');
+
+    let isOpen = true;
+
+    function toggleSidebar() {
+        isOpen = !isOpen;
+
+        if (!isOpen) {
+            sidebar.classList.add('-translate-x-full');
+            main.classList.remove('ml-64');
+            banner.classList.remove('ml-64');
+
+            floatingBtn.classList.remove('hidden');
+
+            banner.classList.add('pl-16'); 
+
+            icon.classList.add('rotate-180'); // 👉 jadi kanan
+        } else {
+            sidebar.classList.remove('-translate-x-full');
+            main.classList.add('ml-64');
+            banner.classList.add('ml-64');
+
+            floatingBtn.classList.add('hidden');
+
+            banner.classList.remove('pl-16'); 
+
+            icon.classList.remove('rotate-180'); // 👉 balik kiri
+        }
+    }
+
+    // klik dari dalam sidebar
+    toggleBtn.addEventListener('click', toggleSidebar);
+
+    // klik dari floating
+    floatingBtn.addEventListener('click', toggleSidebar);
     document.addEventListener('DOMContentLoaded', () => {
         const wrapper = document.getElementById('profileWrapper');
         const button = document.getElementById('profileButton');
@@ -47,6 +103,7 @@
             });
         }
     });
+    
 </script>
 
 @stack('scripts')
