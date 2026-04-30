@@ -47,9 +47,9 @@
     </div>
 </section>
 
-<div class="mt-20 no-scrollbar">
+<div class="mt-20 flex flex-col flex-1 min-h-0">
 
-    <div class="flex gap-6 h-full min-h-0">
+    <div class="flex gap-6 flex-1 min-h-0">
 
         <!-- FORUM FEED -->
         <div class="flex-1 overflow-y-auto no-scrollbar pr-2 flex flex-col gap-4 min-h-0">
@@ -126,7 +126,7 @@
 
 
         <!-- RIGHT STATS -->
-        <div class="w-64 flex flex-col gap-6 sticky top-24 h-fit self-start">
+        <div class="w-64 flex flex-col gap-6 sticky top-[80px] h-fit self-start">
 
             <div class="bg-white p-3 rounded-2xl shadow-sm">
                 <p class="font-semibold mb-3">Waktu Belajar Mingguan</p>

@@ -25,7 +25,7 @@
         <div class="flex items-center gap-4 p-4 bg-white border-b">
 
             <button id="floatingBurger"
-                class="fixed top-[35] left-10 z-[60] p-2 transition hidden">
+                class="fixed top-[35px] left-10 z-[60] p-2 transition hidden">
                 
                 <svg id="sidebarIcon" xmlns="http://www.w3.org/2000/svg"
                     class="w-5 h-5 text-accent rotate-180 transition-transform duration-300"
@@ -37,7 +37,7 @@
             </button>
 
         </div>
-        <main class="flex-1 overflow-y-auto p-6 md:p-10">
+        <main class="flex-1 flex flex-col min-h-0 p-6 md:p-10">
             @yield('content')
         </main>
     </div>
