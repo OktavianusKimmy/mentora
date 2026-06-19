@@ -52,7 +52,7 @@
     <div class="flex gap-6 flex-1 min-h-0">
 
         <!-- FORUM FEED -->
-        <div class="flex-1 overflow-y-auto no-scrollbar pr-2 flex flex-col gap-4 min-h-0">
+        <div class="flex-1 overflow-y-auto no-scrollbar pr-2 flex flex-col gap-4 min-h-0 mt-6">
 
             <div>
                 <h1 class="text-4xl font-bold mb-2">Forum Belajar SNBT</h1>
