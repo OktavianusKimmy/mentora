@@ -6,7 +6,7 @@
     class="fixed top-0 left-0 right-0 z-50 
            bg-gradient-to-r from-blue-600 to-blue-700 
            text-white px-6 py-3 shadow-md 
-           transition-all duration-300 ml-64">
+           transition-all duration-300 ml-20">
     <div class="max-w-7xl mx-auto flex items-center justify-between pl-16 pr-6 py-3">
         <div class="flex flex-col md:flex-row items-center gap-2 md:gap-4">
             <p class="text-lg md:text-xl font-bold tracking-wide">
