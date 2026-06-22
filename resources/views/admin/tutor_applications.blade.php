@@ -57,9 +57,27 @@
                                 {{ $app->email }}
                             </p>
 
-                            <span class="inline-block mt-1 px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs">
-                                {{ ucfirst($app->role) }}
-                            </span>
+                            <div class="flex flex-wrap gap-2 mt-2 mb-4">
+
+                                @if($app->tps)
+                                    <span class="px-2 py-1 bg-blue-100 text-blue-600 text-xs rounded-full">
+                                        TPS
+                                    </span>
+                                @endif
+
+                                @if($app->literasi)
+                                    <span class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded-full">
+                                        Literasi
+                                    </span>
+                                @endif
+
+                                @if($app->numerasi)
+                                    <span class="px-2 py-1 bg-purple-100 text-purple-600 text-xs rounded-full">
+                                        Numerasi
+                                    </span>
+                                @endif
+
+                            </div>
                         </div>
 
                     </div>

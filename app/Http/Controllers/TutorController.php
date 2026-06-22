@@ -6,12 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;  
+use App\Models\Tutor;  
 
 class TutorController extends Controller
 {
     public function index()
     {
-        $tutors = User::where('role', 'tutor')->get();
+        $tutors = Tutor::with('user')
+        ->latest()
+        ->get();
+
         return view('tutor.index', compact('tutors'));
     }
 
@@ -39,6 +43,9 @@ class TutorController extends Controller
             'user_id' => Auth::id(),
             'reason' => $request->reason,
             'utbk_file' => $path,
+            'tps' => $request->has('tps'),
+            'literasi' => $request->has('literasi'),
+            'numerasi' => $request->has('numerasi'),
             'status' => 'pending',
             'created_at' => now(),
         ]);
@@ -46,38 +53,9 @@ class TutorController extends Controller
         return redirect()->route('tutor')->with('success', 'Apply berhasil, tunggu approval!');
     }
 
-    public function show($name)
+    public function show($id)
     {
-        // dummy data
-        $tutors = [
-            'Andi Pratama' => [
-                'name' => 'Andi Pratama',
-                'email' => 'andi@gmail.com',
-                'subject' => 'TPS',
-                'rating' => 4.8,
-                'bio' => 'Tutor berpengalaman dalam TPS, fokus logika dan penalaran.',
-            ],
-            'Budi Santoso' => [
-                'name' => 'Budi Santoso',
-                'email' => 'budi@gmail.com',
-                'subject' => 'Numerasi',
-                'rating' => 4.7,
-                'bio' => 'Spesialis numerasi dan strategi cepat UTBK.',
-            ],
-            'Citra Lestari' => [
-                'name' => 'Citra Lestari',
-                'email' => 'citra@gmail.com',
-                'subject' => 'Bahasa Indonesia',
-                'rating' => 4.9,
-                'bio' => 'Tutor ahli dalam Bahasa Indonesia, fokus pada pemahaman dan analisis teks.',
-            ],
-        ];
-
-        $tutor = $tutors[$name] ?? null;
-
-        if (!$tutor) {
-            abort(404);
-        }
+        $tutor = Tutor::with('user')->findOrFail($id);
 
         return view('tutor.show', compact('tutor'));
     }

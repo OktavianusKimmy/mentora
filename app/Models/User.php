@@ -13,6 +13,7 @@ use Illuminate\Notifications\Notifiable;
 // Tambahkan 'role' dan 'google_id' di sini
 #[Fillable(['name', 'email', 'password', 'role', 'google_id'])]
 #[Hidden(['password', 'remember_token'])]
+
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
@@ -38,5 +39,10 @@ class User extends Authenticatable
 
     public function isTutor() { 
         return $this->role === 'tutor'; 
+    }
+
+    public function tutor()
+    {
+        return $this->hasOne(Tutor::class);
     }
 }

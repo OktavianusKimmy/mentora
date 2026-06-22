@@ -24,7 +24,7 @@
             <div class="-mt-14 mb-4">
                 <div class="w-28 h-28 rounded-full bg-white p-2 shadow-lg">
                     <div class="w-full h-full rounded-full bg-primary text-white flex items-center justify-center text-4xl font-bold">
-                        {{ strtoupper(substr($tutor['name'], 0, 1)) }}
+                        {{ strtoupper(substr($tutor->user->name, 0, 1)) }}
                     </div>
                 </div>
             </div>
@@ -33,26 +33,37 @@
             <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-6">
 
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-900">
-                        {{ $tutor['name'] }}
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">
+                        {{ $tutor->user->name }}
                     </h1>
 
-                    <p class="text-gray-500 mt-1">
-                        Tutor {{ $tutor['subject'] }}
-                    </p>
+                   <div class="flex flex-wrap gap-2 mb-4">
 
-                    <div class="flex items-center gap-3 mt-3">
-
-                        <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
-                            {{ $tutor['subject'] }}
+                    @if($tutor->tps)
+                        <span class="px-2 py-1 bg-blue-100 text-blue-600 text-xs rounded-full">
+                            TPS
                         </span>
+                    @endif
 
-                        <span class="text-yellow-500 font-semibold">
-                            ⭐ {{ $tutor['rating'] }}
+                    @if($tutor->literasi)
+                        <span class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded-full">
+                            Literasi
                         </span>
+                    @endif
 
-                    </div>
+                    @if($tutor->numerasi)
+                        <span class="px-2 py-1 bg-purple-100 text-purple-600 text-xs rounded-full">
+                            Numerasi
+                        </span>
+                        @endif
+                        
+                    <span class="text-yellow-500 font-semibold">
+                        ⭐ {{ $tutor->rating }}
+                    </span>
+
                 </div>
+
+             </div>
 
                 <div class="flex gap-3">
 
@@ -77,7 +88,7 @@
                     </p>
 
                     <h2 class="text-2xl font-bold text-yellow-500 mt-1">
-                        ⭐ {{ $tutor['rating'] }}
+                        ⭐ {{ $tutor->rating }}
                     </h2>
                 </div>
 
@@ -112,23 +123,6 @@
 
                 <div class="bg-gray-50 rounded-2xl p-5 text-gray-700 leading-relaxed">
                     {{ $tutor['bio'] }}
-                </div>
-
-            </div>
-
-            <!-- CONTACT -->
-            <div class="mt-8">
-
-                <h2 class="text-xl font-bold mb-3">
-                    Kontak
-                </h2>
-
-                <div class="bg-gray-50 rounded-2xl p-5">
-
-                    <p class="text-gray-600">
-                        📧 {{ $tutor['email'] }}
-                    </p>
-
                 </div>
 
             </div>

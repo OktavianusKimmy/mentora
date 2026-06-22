@@ -17,6 +17,11 @@ return new class extends Migration
             $table->text('reason');
             $table->string('utbk_file');
             $table->string('status')->default('pending');
+            
+            $table->boolean('tps')->default(false);
+            $table->boolean('literasi')->default(false);
+            $table->boolean('numerasi')->default(false); 
+            
             $table->timestamps();
         });
     }

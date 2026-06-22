@@ -51,6 +51,29 @@
 
         @csrf
 
+        <div class="space-y-2 mb-3">
+
+            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                Keahlian
+            </label>
+
+            <label class="flex items-center gap-2">
+                <input type="checkbox" name="tps">
+                TPS
+            </label>
+
+            <label class="flex items-center gap-2">
+                <input type="checkbox" name="literasi">
+                Literasi
+            </label>
+
+            <label class="flex items-center gap-2">
+                <input type="checkbox" name="numerasi">
+                Numerasi
+            </label>
+
+        </div>
+
         <!-- FILE -->
         <div class="mb-3">
 

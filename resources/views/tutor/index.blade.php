@@ -102,63 +102,112 @@
 
         @forelse($tutors as $tutor)
 
-            <div class="bg-white p-5 rounded-xl shadow hover:shadow-lg transition tutor-card"
-                data-name="{{ strtolower($tutor['name']) }}"
-                data-subject="{{ strtolower($tutor['subject']) }}">
+            <div
+                class="bg-white p-5 rounded-xl shadow hover:shadow-lg transition tutor-card"
+                data-name="{{ strtolower($tutor->user->name) }}"
+                data-tps="{{ $tutor->tps ? 'true' : 'false' }}"
+                data-literasi="{{ $tutor->literasi ? 'true' : 'false' }}"
+                data-numerasi="{{ $tutor->numerasi ? 'true' : 'false' }}"
+            >
 
                 <!-- HEADER -->
-                <div class="flex items-center gap-3 mb-3">
+                <div class="flex items-center gap-3 mb-4">
 
                     <div class="w-12 h-12 bg-primary text-white flex items-center justify-center rounded-full font-bold">
-                        {{ strtoupper(substr($tutor['name'], 0, 1)) }}
+                        {{ strtoupper(substr($tutor->user->name, 0, 1)) }}
                     </div>
 
                     <div>
-                        <h2 class="font-semibold">
-                            {{ $tutor['name'] }}
+                        <h2 class="font-semibold text-lg">
+                            {{ $tutor->user->name }}
                         </h2>
+
                         <p class="text-xs text-gray-400">
-                            Tutor {{ $tutor['subject'] }}
+                            Tutor Mentora
                         </p>
                     </div>
 
                 </div>
 
+                <!-- SKILLS -->
+                <div class="flex flex-wrap gap-2 mb-4">
+
+                    @if($tutor->tps)
+                        <span class="px-2 py-1 bg-blue-100 text-blue-600 text-xs rounded-full">
+                            TPS
+                        </span>
+                    @endif
+
+                    @if($tutor->literasi)
+                        <span class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded-full">
+                            Literasi
+                        </span>
+                    @endif
+
+                    @if($tutor->numerasi)
+                        <span class="px-2 py-1 bg-purple-100 text-purple-600 text-xs rounded-full">
+                            Numerasi
+                        </span>
+                    @endif
+
+                </div>
+
                 <!-- RATING -->
                 <p class="text-yellow-500 text-sm mb-2">
-                    ⭐ {{ $tutor['rating'] }} (120 review)
+                    ⭐ {{ $tutor->rating }} ({{ $tutor->total_reviews }} review)
                 </p>
 
                 <!-- EMAIL -->
                 <p class="text-sm text-gray-500 mb-3">
-                    {{ $tutor['email'] }}
+                    {{ $tutor->user->email }}
                 </p>
 
-                <!-- DESC -->
-                <p class="text-xs text-gray-400 mb-4">
-                    Fokus membantu siswa lolos SNBT dengan strategi efektif
+                <!-- BIO -->
+                <p class="text-xs text-gray-400 mb-4 line-clamp-3">
+                    {{ $tutor->bio }}
                 </p>
-                
+
+                <!-- BUTTONS -->
                 <div class="flex gap-2">
-                    <!-- BUTTON -->
-                    <a href="{{ route('tutor.show', $tutor['name']) }}"
-                    class="w-full block text-center border border-primary text-primary font-semibold py-2 rounded-xl hover:opacity-90">
+
+                    <a
+                        href="{{ route('tutor.show', $tutor->id) }}"
+                        class="w-full block text-center border border-primary text-primary font-semibold py-2 rounded-xl hover:bg-primary hover:text-white transition"
+                    >
                     Lihat Profil
                     </a>
-                
-                    <a href="{{ route('tutor.show', $tutor['name']) }}"
-                    class="w-full block text-center bg-primary text-white font-semibold py-2 rounded-xl hover:opacity-90">
-                    Book Sekarang
+
+                    <a
+                        href="{{ route('tutor.show', $tutor->id) }}"
+                        class="w-full block text-center bg-primary text-white font-semibold py-2 rounded-xl hover:opacity-90 transition"
+                    >
+                        Book Sekarang
                     </a>
+
                 </div>
 
             </div>
 
         @empty
 
-            <!-- EMPTY STATE -->
-            <div class="col-span-3 text-center text-gray-500 mt-10">
-                Belum ada tutor 😢
+            <div class="col-span-3">
+
+                <div class="bg-white rounded-2xl shadow p-10 text-center">
+
+                    <div class="text-5xl mb-4">
+                        👨‍🏫
+                    </div>
+
+                    <h3 class="font-bold text-xl mb-2">
+                        Belum Ada Tutor
+                    </h3>
+
+                    <p class="text-gray-500">
+                        Tutor yang telah disetujui akan muncul di sini.
+                    </p>
+
+                </div>
+
             </div>
 
         @endforelse
@@ -197,20 +246,33 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function applyFilter() {
+
         const search = searchInput.value.toLowerCase();
 
         tutorCards.forEach(card => {
+
             const name = card.dataset.name;
-            const subject = card.dataset.subject;
+
+            let matchFilter = true;
+
+            if(currentFilter === 'tps') {
+                matchFilter = card.dataset.tps === 'true';
+            }
+
+            if(currentFilter === 'literasi') {
+                matchFilter = card.dataset.literasi === 'true';
+            }
+
+            if(currentFilter === 'numerasi') {
+                matchFilter = card.dataset.numerasi === 'true';
+            }
 
             const matchSearch = name.includes(search);
-            const matchFilter = currentFilter === 'all' || subject === currentFilter;
 
-            if (matchSearch && matchFilter) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
+            card.style.display =
+                (matchSearch && matchFilter)
+                ? 'block'
+                : 'none';
         });
     }
 

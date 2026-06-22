@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/approve/{id}', [AdminController::class, 'approve'])
         ->name('admin.approve');
 
-    Route::get('/tutor/{name}', [TutorController::class, 'show'])
+    Route::get('/tutor/{id}', [TutorController::class, 'show'])
         ->name('tutor.show');
         
     // --- INI ROUTE BARUNYA ---

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Tutor;
 
 class AdminController extends Controller
 {
@@ -49,6 +50,18 @@ class AdminController extends Controller
         DB::table('tutor_applications')
             ->where('id', $id)
             ->update(['status' => 'approved']);
+
+        Tutor::create([
+            'user_id' => $app->user_id,
+
+            'tps' => $app->tps,
+            'literasi' => $app->literasi,
+            'numerasi' => $app->numerasi,
+
+            'bio' => '',
+            'rating' => 0,
+            'total_reviews' => 5,
+        ]);
 
         return back();
     }
