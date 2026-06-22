@@ -15,7 +15,7 @@
         </style>
     </head>
 
-    <body class="bg-background h-full overflow-hidden">
+    <body class="bg-background min-h-screen">
         <div class="flex h-screen">
 
             @include('partials.sidebar')

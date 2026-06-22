@@ -47,7 +47,8 @@
             </span>
         </a>
 
-        <a href="#" class="flex items-center gap-3 px-3.5 py-3 rounded-lg hover:bg-gray-100">
+        <a href="{{route('tutor')}}" class="flex items-center gap-3 px-3.5 py-3 rounded-lg 
+            {{ request()->is('tutor') ? 'bg-primary/10 text-primary font-semibold' : 'hover:bg-gray-100' }}">
             <span>👨‍🏫</span>
             <span class="sidebar-text
                 max-w-0
