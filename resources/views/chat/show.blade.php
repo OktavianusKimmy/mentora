@@ -5,7 +5,7 @@
 
     <div class="w-96 border-r flex flex-col flex-shrink-0">
         <div class="p-6 border-b">
-            <h1 class="text-2xl font-bold">Messages</h1>
+            <h1 class="text-2xl font-bold">{{ __('Pesan') }}</h1>
             <p class="text-gray-500 text-sm mt-1">{{ __('Chat dengan tutor Mentora') }}</p>
         </div>
 
