@@ -24,9 +24,13 @@ class ForumController extends Controller
 
     public function store(Request $request)
     {
+        $allowedCategories = Auth::user()->isAdmin()
+            ? array_keys(ForumThread::CATEGORIES)
+            : array_keys(ForumThread::CREATABLE_CATEGORIES);
+
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'category' => ['required', Rule::in(array_keys(ForumThread::CREATABLE_CATEGORIES))],
+            'category' => ['required', Rule::in($allowedCategories)],
             'body' => ['required', 'string', 'max:5000'],
             'images' => ['nullable', 'array'],
             'images.*' => ['image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],

@@ -229,6 +229,9 @@
                                 class="w-full border-gray-200 rounded-xl focus:ring-blue-500 focus:border-blue-500 py-3 px-4">
                                 <option value="diskusi umum" @selected(old('category') === 'diskusi umum')>{{ __('Diskusi Umum') }}</option>
                                 <option value="tanya jawab" @selected(old('category') === 'tanya jawab')>{{ __('Tanya Jawab') }}</option>
+                                @if(auth()->user()->isAdmin())
+                                    <option value="pengumuman" @selected(old('category') === 'pengumuman')>📢 {{ __('Pengumuman') }}</option>
+                                @endif
                             </select>
                         </div>
                         <div>
