@@ -31,13 +31,13 @@
         <button
             class="tab-btn px-4 py-2 bg-primary text-white rounded-xl font-semibold"
             data-tab="pending">
-            Pending ({{ $pendingApps->count() }})
+            {{ __('Menunggu Konfirmasi') }} ({{ $pendingApps->count() }})
         </button>
 
         <button
             class="tab-btn px-4 py-2 bg-gray-200 text-gray-700 rounded-xl font-semibold"
             data-tab="approved">
-            Approved ({{ $approvedApps->count() }})
+            {{ __('Disetujui') }} ({{ $approvedApps->count() }})
         </button>
     </div>
 
