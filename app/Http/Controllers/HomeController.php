@@ -72,7 +72,7 @@ class HomeController extends Controller
 
         $max = max($tps, $numerasi, $literasi, 1); // biar ga bagi 0
 
-        $questions = ForumThread::with(['user'])->withCount('replies')->latest()->take(5)->get();
+        $questions = ForumThread::with('user')->withCount(['likes', 'replies'])->orderByDesc('likes_count')->orderByDesc('replies_count')->orderByDesc('created_at')->take(5)->get();
 
         if (auth()->check()) {
             $streak = StudyStreakService::getCurrentStreak(auth()->id());
